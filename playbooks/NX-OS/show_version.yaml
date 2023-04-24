@@ -1,0 +1,16 @@
+- name: show version au format json
+  hosts: nxos
+  gather_facts: false
+
+  vars:
+    cli_command: "show version"
+
+  tasks:
+    - name: Exécuter la commande
+      cisco.nxos.nxos_command:
+        commands: "{{ cli_command }}"
+      register: result
+
+    - name: Afficher le résultat
+      debug:
+        var: result.stdout_lines

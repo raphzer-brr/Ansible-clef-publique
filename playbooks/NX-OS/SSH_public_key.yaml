@@ -1,0 +1,71 @@
+# ====================== TO DO ====================== #
+
+# ✅ PoC 
+# ❌ Test des bails non testé en commentaire 
+# ❌ Faire en sorte que la configuration soit enregistrer avant toute configuration de ansible 
+# ❌ Demander a l'utilisateur le chemin vers sa clef public et set par default comme c'est deja 
+
+# ==================== ❌ ou ✅ ===================== #
+
+
+
+---
+  - name: Deploiment de clef publique SSH sur NX OS
+    hosts: nxos
+    gather_facts: false
+    
+    vars_prompt:
+    # Doc : https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_prompts.html
+      - name: username
+        prompt: Entrer un username pour l'accès SSH sur le switch. default
+        private: false
+        default: "sshuser"
+
+    vars:
+      ssh_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}" # Récupération de la clé publique SSH dans l'hote Ansible
+
+# ====================== PAS ENCORE TEST ====================== #
+    # tasks:
+    #   - name: Sauvegarde de la configuration avant changement
+    #     cisco.nxos.nxos_config:
+    #       backup: yes
+    #       backup_options:
+    #         filename: backup.cfg
+    #         dir_path: /home/raphael/NX/
+# ============================================================== #
+
+      - name: Désactivation telnet
+        cisco.nxos.nxos_feature:
+          feature: telnet
+          state: disabled
+      
+      - name: Création de l'utilisateur SSH
+        cisco.nxos.nxos_command:
+          commands:
+          - configure terminal
+          - command: "username {{ username }} role network-admin"
+      
+      - name: Ajout de la clef publique sur le switch depuis ~/.ssh/id_rsa.pub
+        cisco.nxos.nxos_command:
+          commands:
+          - configure terminal
+          - command: "username {{ username }} sshkey {{ ssh_key }}"  # Utilisation de la variable ssh_key contenant la clé publique
+            
+      - name: Création d'un couple de clef RSA (2048 bits) sur le switch 
+        cisco.nxos.nxos_command:
+          commands:
+          - configure terminal
+          - command: "username {{ username }} keypair generate rsa 2048 force"
+
+# ====================== PAS ENCORE TEST ====================== #
+      # - name: Enregistrement de la configuration
+      #   cisco.nxos.nxos_command:
+      #     commands:
+      #     - copy running-config startup-config
+
+      # OU
+
+      # - name: Save configuration
+      #   cisco.nxos.nxos_save_config:
+# ============================================================== #
+          
