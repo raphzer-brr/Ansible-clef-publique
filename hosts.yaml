@@ -11,5 +11,6 @@ nxos:
       ansible_ssh_common_args: -oHostKeyAlgorithms=+ssh-rsa
 
 
-# [nxos]
+# [nxos] Fichier au format init bcp moins lisible 
+# Faire des groupes qui contiendront les varibles pour un OS 
 # nx-1 ansible_host=192.168.1.248 ansible_user=admin ansible_password=Cisco123cisco

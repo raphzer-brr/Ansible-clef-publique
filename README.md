@@ -4,7 +4,9 @@
 
 - [ ]  Mettre en place des variable d’environnment pour pouvoire faire mes git push l’esprit trkl
 - [ ]  Mettre en place un seveur dedier ansible sous deb 11 avec comme base l’article suivant : [https://www.tutos.eu/7852](https://www.tutos.eu/7852)
-- [ ]  réfléchir si il serait mieux de mettre tout le deploiment dans un seule fichier et de tester si l’os de l’appareil il est bien celui adapté.
+- [ ]  Réfléchir si il serait mieux de mettre tout le deploiment dans un seule fichier et de tester si l’os de l’appareil il est bien celui adapté.
+- [ ]  Faire des fichier yaml qui serviront de var d'env pour des groupes d'apareil suivant leur OS
+
 
 ## NX OS
 
