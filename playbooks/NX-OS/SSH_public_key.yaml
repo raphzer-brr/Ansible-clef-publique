@@ -2,7 +2,7 @@
   - name: Deploiment de clef publique SSH sur NX OS
     hosts: nxos
     gather_facts: false
-    
+
     vars_prompt:
     # Doc : https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_prompts.html
       - name: username
@@ -27,13 +27,13 @@
         cisco.nxos.nxos_feature:
           feature: telnet
           state: disabled
-      
+# D'abord le supprimé pour + idempotence
       - name: Création de l'utilisateur SSH
         cisco.nxos.nxos_command:
           commands:
           - configure terminal
           - command: "username {{ username }} role network-admin"
-      
+
       - name: Ajout de la clef publique sur le switch depuis ~/.ssh/id_rsa.pub
         cisco.nxos.nxos_command:
           commands:

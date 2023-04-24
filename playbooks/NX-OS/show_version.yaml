@@ -1,3 +1,4 @@
+# Tester comment on peut manipulé les donné deriere 
 - name: show version au format json
   hosts: nxos
   gather_facts: false
