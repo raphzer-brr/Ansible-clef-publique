@@ -1,14 +1,3 @@
-# ====================== TO DO ====================== #
-
-# ✅ PoC 
-# ❌ Test des bails non testé en commentaire 
-# ❌ Faire en sorte que la configuration soit enregistrer avant toute configuration de ansible 
-# ❌ Demander a l'utilisateur le chemin vers sa clef public et set par default comme c'est deja 
-
-# ==================== ❌ ou ✅ ===================== #
-
-
-
 ---
   - name: Deploiment de clef publique SSH sur NX OS
     hosts: nxos
@@ -25,7 +14,7 @@
       ssh_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}" # Récupération de la clé publique SSH dans l'hote Ansible
 
 # ====================== PAS ENCORE TEST ====================== #
-    # tasks:
+    # 
     #   - name: Sauvegarde de la configuration avant changement
     #     cisco.nxos.nxos_config:
     #       backup: yes
@@ -33,7 +22,7 @@
     #         filename: backup.cfg
     #         dir_path: /home/raphael/NX/
 # ============================================================== #
-
+    tasks:
       - name: Désactivation telnet
         cisco.nxos.nxos_feature:
           feature: telnet
