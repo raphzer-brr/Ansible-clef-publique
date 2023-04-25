@@ -12,15 +12,26 @@
 ## Cette grosse plaie de HP procurve 
 Liste des problemes : 
 - [ ]  Pas de module ansible officiel si je ne m'abuse (Aruba possible mais ProCurve dans mes reves)
-- [ ]  Pourquoi pas le faire a la main en python ? => Des gens bien plus chaud que moi n'ont pas réussit 
-- [ ]  Reverse engenering sur la maniere dont les commande ssh sont envoyer au switch via wireshark ! Sauf que devine quoi c'est impossible selon le Wiki de Wireshark (satané Diffie Helman)
-- [ ]  Pourquoi pas changer le temps de négotiation de clef ???
-- [ ]  Changer vers un algorithme obsolet ??
-- [ ]  Trouver un autre bail de Ansible (Puppet ?? Terraforme ??)
-- [ ]  Executé des commande via python comme si j'etais dans un terminale ??????? => Best soluc pour l'instant  
+- [ ] ~~ Pourquoi pas le faire a la main en python ? => Des gens bien plus chaud que moi n'ont pas réussit ~~
+- [ ] ~~ Reverse engenering sur la maniere dont les commande ssh sont envoyer au switch via wireshark ! Sauf que devine quoi c'est impossible selon le Wiki de Wireshark (satané Diffie Helman)~~
+- [ ] ~~ Pourquoi pas changer le temps de négotiation de clef ???~~
+- [ ] ~~ Changer vers un algorithme obsolet ??~~
+- [ ] ~~ Trouver un autre bail de Ansible (Puppet ?? Terraforme ??)~~
+- [ ] ~~ Executé des commande via python comme si j'etais dans un terminale ??????? => Best soluc pour l'instant  ~~
 
+### Solution : ⭐ netmiko ⭐
 
+** Intallation **
+```bash
+pip install netmiko
+pip install paramiko --upgrade
 
+```
+
+- [ ] Trouver un moyen de supprimer la clef public client de maniere a pouvoire en mettre une autre 
+- [ ] Faire ensuite un jeu de commande pour remettre le switch dans sa configuration de depart avec une auth ssh par mot de passe 
+- [ ] Trouver l'erreur qui empeche de voire le resultat des commande en console 
+- [ ] Il doit forcement y avoir un probleme dans les commande zeroid d'ailleur y'en a une qui marche pas 
 
 ## NX OS
 ### Todo
