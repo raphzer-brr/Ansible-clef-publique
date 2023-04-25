@@ -41,7 +41,6 @@
         cisco.nxos.nxos_command:
           commands:
           - configure terminal
-          - no username {{ username }}
           - username {{ username }} role network-admin
           - username {{ username }} sshkey {{ ssh_key }}  # Utilisation de la variable ssh_key contenant la clé publique
           - command: "username {{ username }} keypair generate rsa 2048 force"
