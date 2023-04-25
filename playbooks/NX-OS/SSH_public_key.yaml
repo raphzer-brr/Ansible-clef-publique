@@ -1,7 +1,7 @@
 ---
   - name: Deploiment de clef publique SSH sur NX OS
     hosts: nxos
-    gather_facts: True
+    gather_facts: False
 
     vars_prompt:
     # Doc : https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_prompts.html
@@ -37,27 +37,16 @@
           state: disabled
         when: ansible_network_os == 'cisco.nxos.nxos'
 
-      - name: Création de l'utilisateur SSH
+      - name: Configuration ssh / Ajout de la clef publique sur le switch depuis ~/.ssh/id_rsa.pub
         cisco.nxos.nxos_command:
           commands:
           - configure terminal
           - no username {{ username }}
-          - command: "username {{ username }} role network-admin"
-        when: ansible_network_os == 'cisco.nxos.nxos'
-
-      - name: Ajout de la clef publique sur le switch depuis ~/.ssh/id_rsa.pub
-        cisco.nxos.nxos_command:
-          commands:
-          - configure terminal
-          - command: "username {{ username }} sshkey {{ ssh_key }}"  # Utilisation de la variable ssh_key contenant la clé publique
+          - username {{ username }} role network-admin
+          - username {{ username }} sshkey {{ ssh_key }}  # Utilisation de la variable ssh_key contenant la clé publique
+          - command: "username {{ username }} keypair generate rsa 2048 force"
         when: ansible_network_os == 'cisco.nxos.nxos'    
 
-      - name: Création d'un couple de clef RSA (2048 bits) sur le switch 
-        cisco.nxos.nxos_command:
-          commands:
-          - configure terminal
-          - command: "username {{ username }} keypair generate rsa 2048 force"
-        when: ansible_network_os == 'cisco.nxos.nxos'
 # ============================================================== #
 # ======================== /ONLY NX-OS/ ======================== #
 # ============================================================== #
@@ -72,7 +61,7 @@
           - copy running-config startup-config
 
 # ========================= DEBUG ============================== #
-# https://gryzli.info/2017/12/21/ansible-debug-print-variables/
+# KING OF DEBUG : https://gryzli.info/2017/12/21/ansible-debug-print-variables/
       # - name: Display all variables/facts known for a host
       #   debug:
       #     var: hostvars[inventory_hostname]

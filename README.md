@@ -228,6 +228,8 @@ nxos:
 - **Comprendre le YAML : [lien](https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html#yaml-syntax)**
 - **Bonne pratique Ansible : [lien](https://docs.ansible.com/ansible/latest/tips_tricks/ansible_tips_tricks.html)**
 - **Cisco**
+    - Generale : 
+        - Optimisation [lien](https://www.redhat.com/sysadmin/faster-ansible-playbook-execution) et [lien][lien](https://www.redhat.com/sysadmin/faster-ansible-modules)  
     - IOS : [lien](https://docs.ansible.com/ansible/latest/collections/cisco/ios/ios_command_module.html)
         - Vidéo : [lien](https://youtu.be/wbVZkb8ocH4)
     - NX OS :
