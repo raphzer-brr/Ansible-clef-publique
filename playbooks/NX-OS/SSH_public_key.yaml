@@ -1,8 +1,7 @@
 ---
   - name: Deploiment de clef publique SSH sur NX OS
     hosts: nxos
-    gather_facts: false
-
+    gather_facts: True
     vars_prompt:
     # Doc : https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_prompts.html
       - name: username
@@ -13,16 +12,21 @@
     vars:
       ssh_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}" # Récupération de la clé publique SSH dans l'hote Ansible
 
-# ====================== PAS ENCORE TEST ====================== #
-    # 
-    #   - name: Sauvegarde de la configuration avant changement
-    #     cisco.nxos.nxos_config:
-    #       backup: yes
-    #       backup_options:
-    #         filename: backup.cfg
-    #         dir_path: /home/raphael/NX/
-# ============================================================== #
+
     tasks:
+      - setup:          # Permet de recupéré l'heure !?
+          gather_subset:
+          - 'min'
+# ====================== PAS ENCORE TEST ====================== #
+
+      - name: Sauvegarde de la configuration avant changement
+        cisco.nxos.nxos_config:
+          backup: yes
+          backup_options:
+            filename: backup_{{ inventory_hostname }}_{{ ansible_date_time.date }}_{{ ansible_date_time.time }}.cfg
+            # Nomentlature du backup : hostname_YYYY-MM-DD_HH:MM:SS.cfg
+            dir_path: /home/raphael/NX/
+# ============================================================== #
       - name: Désactivation telnet
         cisco.nxos.nxos_feature:
           feature: telnet

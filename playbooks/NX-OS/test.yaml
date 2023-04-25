@@ -1,0 +1,11 @@
+
+---
+- hosts: localhost
+  gather_facts: no
+
+  tasks:
+    - setup:
+        gather_subset:
+          - 'min'
+    - debug:
+        var: ansible_date_time.date
