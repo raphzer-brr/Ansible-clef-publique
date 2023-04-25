@@ -23,7 +23,7 @@
         cisco.nxos.nxos_config:
           backup: yes
           backup_options:
-            filename: backup_{{ inventory_hostname }}_{{ ansible_date_time.date }}_{{ ansible_date_time.time }}.cfg
+            filename: backup_{{ inventory_hostname }}_{{ ansible_date_time.time }}_{{ ansible_date_time.date }}.cfg
             # Nomentlature du backup : hostname_YYYY-MM-DD_HH:MM:SS.cfg
             dir_path: /home/raphael/NX/
 # ============================================================== #
