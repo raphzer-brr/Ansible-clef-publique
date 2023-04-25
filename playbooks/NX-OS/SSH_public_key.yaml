@@ -2,6 +2,7 @@
   - name: Deploiment de clef publique SSH sur NX OS
     hosts: nxos
     gather_facts: True
+
     vars_prompt:
     # Doc : https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_prompts.html
       - name: username
@@ -12,53 +13,73 @@
     vars:
       ssh_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}" # Récupération de la clé publique SSH dans l'hote Ansible
 
-
     tasks:
-      - setup:          # Permet de recupéré l'heure !?
+      - setup:          
+      # Permet d'accédé a certaine varible ex : ansible_date_time
           gather_subset:
           - 'min'
-# ====================== PAS ENCORE TEST ====================== #
-
+# ============================================================== #
+# ========================= ONLY NX-OS ========================= #
+# ============================================================== #
       - name: Sauvegarde de la configuration avant changement
         cisco.nxos.nxos_config:
+        # J'ai essayer avec cisco.nxos.nxos_snapshot mais impossible version ?????
           backup: yes
           backup_options:
             filename: backup_{{ inventory_hostname }}_{{ ansible_date_time.time }}_{{ ansible_date_time.date }}.cfg
-            # Nomentlature du backup : hostname_YYYY-MM-DD_HH:MM:SS.cfg
-            dir_path: /home/raphael/NX/
-# ============================================================== #
+            # Nomentlature du backup : hostname_HH:MM:SS_YYYY-MM-DD.cfg
+            dir_path: /home/raphael/backup/
+        when: ansible_network_os == 'cisco.nxos.nxos'
+
       - name: Désactivation telnet
         cisco.nxos.nxos_feature:
           feature: telnet
           state: disabled
-# D'abord le supprimé pour + idempotence
+        when: ansible_network_os == 'cisco.nxos.nxos'
+
       - name: Création de l'utilisateur SSH
         cisco.nxos.nxos_command:
           commands:
           - configure terminal
+          - no username {{ username }}
           - command: "username {{ username }} role network-admin"
+        when: ansible_network_os == 'cisco.nxos.nxos'
 
       - name: Ajout de la clef publique sur le switch depuis ~/.ssh/id_rsa.pub
         cisco.nxos.nxos_command:
           commands:
           - configure terminal
           - command: "username {{ username }} sshkey {{ ssh_key }}"  # Utilisation de la variable ssh_key contenant la clé publique
-            
+        when: ansible_network_os == 'cisco.nxos.nxos'    
+
       - name: Création d'un couple de clef RSA (2048 bits) sur le switch 
         cisco.nxos.nxos_command:
           commands:
           - configure terminal
           - command: "username {{ username }} keypair generate rsa 2048 force"
-
-# ====================== PAS ENCORE TEST ====================== #
-      # - name: Enregistrement de la configuration
-      #   cisco.nxos.nxos_command:
-      #     commands:
-      #     - copy running-config startup-config
-
-      # OU
-
-      # - name: Save configuration
-      #   cisco.nxos.nxos_save_config:
+        when: ansible_network_os == 'cisco.nxos.nxos'
 # ============================================================== #
-          
+# ======================== /ONLY NX-OS/ ======================== #
+# ============================================================== #
+
+
+# ============================================================== #
+# ========================== GENERALE ========================== #
+# ============================================================== #
+      - name: Enregistrement de la configuration
+        cisco.nxos.nxos_command:
+          commands:
+          - copy running-config startup-config
+
+# ========================= DEBUG ============================== #
+# https://gryzli.info/2017/12/21/ansible-debug-print-variables/
+      # - name: Display all variables/facts known for a host
+      #   debug:
+      #     var: hostvars[inventory_hostname]
+      #   tags: debug_info
+# ============================================================== #
+
+
+# ============================================================== #
+# ========================= /GENERALE/ ========================= #
+# ============================================================== #

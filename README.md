@@ -4,19 +4,20 @@
 
 - [ ]  Mettre en place des variable d’environnment pour pouvoire faire mes git push l’esprit trkl
 - [ ]  Mettre en place un seveur dedier ansible sous deb 11 avec comme base l’article suivant : [https://www.tutos.eu/7852](https://www.tutos.eu/7852)
-- [ ]  Réfléchir si il serait mieux de mettre tout le deploiment dans un seule fichier et de tester si l’os de l’appareil il est bien celui adapté.
+- [ ]  Réfléchir si il serait mieux de mettre tout le deploiment dans un seule fichier
 - [ ]  Faire des fichier yaml qui serviront de var d'env pour des groupes d'apareil suivant leur OS
 - [ ]  Metre en place un script qui supprime les backup de fichier de conf trop vielle 
+- [x]  Tester si l’os de l’appareil il est bien celui adapté.
 
 
 ## NX OS
 ### Todo
 
-- [ ]  Enregister apres avoire effectuer des configuration
-- [ ]  Supprimé l’utilisateur avant de le créé
 - [ ]  Demandé à l’utilisateur le chemin vers sa clef publique, ou trouver le moyen de foutre un arg dans la commande ansible-playbooks
-- [ ]  Faire en sorte d’enregistrer le fichier de configuration précédent avant toute configuration avec ansible
 - [ ]  Demandé a l’utilisateur si il souhaite sécurisé son accès ssh ou si oui fait une ACL assisté a base de question et de varible comme ansible_host pour l’@IP du SW ou avec vrf mgmt
+- [x]  Enregister apres avoire effectuer des configuration
+- [x]  Supprimé l’utilisateur avant de le créé
+- [x]  Faire en sorte d’enregistrer le fichier de configuration précédent avant toute configuration avec ansible
 
 ### 🆘Todo oubliette / idée avorté 🆘
 - [ ]  Mettre a jour le N5K car pour celui que j’utilise on est a la version 5.3….

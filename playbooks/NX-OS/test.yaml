@@ -9,3 +9,5 @@
           - 'min'
     - debug:
         var: ansible_date_time.date
+    - debug:
+        var: ansible
