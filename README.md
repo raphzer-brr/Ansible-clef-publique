@@ -9,6 +9,18 @@
 - [ ]  Metre en place un script qui supprime les backup de fichier de conf trop vielle 
 - [x]  Tester si l’os de l’appareil il est bien celui adapté.
 
+## Cette grosse plaie de HP procurve 
+Liste des problemes : 
+- [ ]  Pas de module ansible officiel si je ne m'abuse (Aruba possible mais ProCurve dans mes reves)
+- [ ]  Pourquoi pas le faire a la main en python ? => Des gens bien plus chaud que moi n'ont pas réussit 
+- [ ]  Reverse engenering sur la maniere dont les commande ssh sont envoyer au switch via wireshark ! Sauf que devine quoi c'est impossible selon le Wiki de Wireshark (satané Diffie Helman)
+- [ ]  Pourquoi pas changer le temps de négotiation de clef ???
+- [ ]  Changer vers un algorithme obsolet ??
+- [ ]  Trouver un autre bail de Ansible (Puppet ?? Terraforme ??)
+- [ ]  Executé des commande via python comme si j'etais dans un terminale ??????? => Best soluc pour l'instant  
+
+
+
 
 ## NX OS
 ### Todo
@@ -46,90 +58,7 @@ cd ~/Projects/Ansible-clef-publique
 ansible-playbook playbooks/NX-OS/SSH_public_key.yaml -i hosts.yaml
 ```
 
-### hosts.yaml
 
-```yaml
----
-nxos:
-  hosts:
-    nx-1:
-      ansible_port: 22
-      ansible_host: 192.168.1.248
-      ansible_connection: ansible.netcommon.network_cli
-      ansible_ssh_user: admin
-      ansible_network_os: cisco.nxos.nxos
-      ansible_ssh_pass: Cisco123cisco
-      ansible_ssh_common_args: -oHostKeyAlgorithms=+ssh-rsa
-```
-
-### SSH_public_key.yaml
-
-```yaml
-# ====================== TO DO ====================== #
-
-# ==================== ❌ ou ✅ ===================== #
-
----
-  - name: Deploiment de clef publique SSH sur NX OS
-    hosts: nxos
-    gather_facts: false
-    
-    vars_prompt:
-    # Doc : https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_prompts.html
-      - name: username
-        prompt: Entrer un username pour l'accès SSH sur le switch. default
-        private: false
-        default: "sshuser"
-
-    vars:
-      ssh_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}" # Récupération de la clé publique SSH dans l'hote Ansible avec le chemin indiqué, faire attention au droit de lecture 
-
-# ====================== PAS ENCORE TEST ====================== #
-    # tasks:
-    #   - name: Sauvegarde de la configuration avant changement
-    #     cisco.nxos.nxos_config:
-    #       backup: yes
-    #       backup_options:
-    #         filename: backup.cfg
-    #         dir_path: /home/raphael/NX/
-# ============================================================== #
-
-      - name: Désactivation telnet
-        cisco.nxos.nxos_feature:
-          feature: telnet
-          state: disabled
-      
-      - name: Création de l'utilisateur SSH
-        cisco.nxos.nxos_command:
-          commands:
-          - configure terminal
-          - command: "username {{ username }} role network-admin"
-      
-      - name: Ajout de la clef publique sur le switch depuis ~/.ssh/id_rsa.pub
-        cisco.nxos.nxos_command:
-          commands:
-          - configure terminal
-          - command: "username {{ username }} sshkey {{ ssh_key }}"  
-          # Utilisation de la variable ssh_key contenant la clé publique
-            
-      - name: Création d'un couple de clef RSA (2048 bits) sur le switch 
-        cisco.nxos.nxos_command:
-          commands:
-          - configure terminal
-          - command: "username {{ username }} keypair generate rsa 2048 force"
-
-# ====================== PAS ENCORE TEST ====================== #
-      # - name: Enregistrement de la configuration
-      #   cisco.nxos.nxos_command:
-      #     commands:
-      #     - copy running-config startup-config
-
-      # OU
-
-      # - name: Save configuration
-      #   cisco.nxos.nxos_save_config:
-# ============================================================== 
-```
 
 ## Methode de versionning des fichiers de configuration (Pour la PoC seulement)
 

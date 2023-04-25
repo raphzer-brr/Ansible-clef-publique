@@ -28,7 +28,7 @@
           backup_options:
             filename: backup_{{ inventory_hostname }}_{{ ansible_date_time.time }}_{{ ansible_date_time.date }}.cfg
             # Nomentlature du backup : hostname_HH:MM:SS_YYYY-MM-DD.cfg
-            dir_path: /home/raphael/backup/
+            dir_path: /home/raphael/backup/NX
         when: ansible_network_os == 'cisco.nxos.nxos'
 
       - name: Désactivation telnet
@@ -65,7 +65,7 @@
       #   debug:
       #     var: hostvars[inventory_hostname]
       #   tags: debug_info
-# ============================================================== #
+# ========================= /DEBUG/ ============================ #
 
 
 # ============================================================== #
