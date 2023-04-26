@@ -1,7 +1,7 @@
 # Ansible-clef-publique
 
 ## Todo
-
+- [ ]  METTRE A JOUR LE README !!!!!!!!!
 - [ ]  Mettre en place des variable d’environnment pour pouvoire faire mes git push l’esprit trkl
 - [ ]  Mettre en place un seveur dedier ansible sous deb 11 avec comme base l’article suivant : [https://www.tutos.eu/7852](https://www.tutos.eu/7852)
 - [ ]  Réfléchir si il serait mieux de mettre tout le deploiment dans un seule fichier
