@@ -1,0 +1,46 @@
+HP J9147A 2910al-48G Switch
+Software revision W.15.14.0014
+
+Copyright (C) 1991-2016 Hewlett-Packard Development Company, L.P.
+
+                   RESTRICTED RIGHTS LEGEND
+ Confidential computer software.  Valid license from HP required for possession,
+ use or copying. Consistent with FAR 12.211 and 12.212, Commercial Computer
+ Software, Computer Software Documentation, and Technical Data for Commercial
+ Items are licensed to the U.S. Government under vendor's standard commercial
+ license.
+                   HEWLETT-PACKARD DEVELOPMENT COMPANY, L.P. 
+                   20555 State Highway 249, Houston, TX 77070
+
+Press any key to continueYour previous successful login (as manager) was on 1990-01-01 04:51:05     
+ from 10.100.40.95
+HP# 
+HP# 
+HP# 
+HP# terminal width 511
+HP# 
+HP# no page
+HP# 
+HP# configure terminal
+HP(config)# 
+HP(config)# no telnet-server
+HP(config)# ip ssh port 22
+HP(config)# ip ssh cipher aes256-cbc
+HP(config)# ip ssh mac hmac-sha1
+HP(config)# ip ssh filetransfer
+HP(config)# aaa authentication ssh login public-key none
+HP(config)# aaa authentication ssh enable public-key
+HP(config)# 
+HP(config)# end
+HP# 
+HP# 
+HP# configure terminal
+HP(config)# 
+HP(config)# ip ssh public-key manager 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCQrOInu0LiSR2aZzlFrxzoRQ4du0O/49ci70fARaPJGR8mc7waMtMLihYF00HdWN0HnuIFE+MxuNHQshJ7qWz2cx9EI+s4kif7HwFqxxi/HO/anT84Ulo0oYIqbLcErKYmwZO9pHLFRJezIhjRzvX6KgfBba5khAz3ueB30Pqx7rIB9X691qeQe3bh2/9reLnSizo04apLS5tfz/gGuf76jRmJBgixZKCuoA4r9FfM1Q3e2ObUjIRB23uOyZKTu9UKSfpGZn8K4Ms6RP4DaOLALWqhAQuCZ+dxj+ZSmRxPNYij+06lTiuKRFqIR9kQUZD2VSrIls0S959P8e6OiNznS/EbmK2OlUftvGivEyzF1PO48PrpaRsHpC37wDvD17V0bJWPskuNB3XGhqIzK6Z+ciKKSDUpWcJCbzP55w+
+UuSy+3gbfzgPcyGlf/hAeD0ZzEGzpJLV8pGBGfkei2XRE3Uo+20arcTsN12IHqoHBf9cRz5IROiA4sCSjy0FcI0UHeQ/yI4zLRRMn7vCJ9emDRYPyZd7rMI4tII0lZdcg1Rdxz+gPK5j9v6PsbiJwG7d+1s4HdyJhxFVQzo6giVr/AaGRroaRB63aWgTbEqJepGCWwuDrbhV+l9e3/PaH8RSF2Vkh7oeSaqkOB9tyS/PS3gV90qXjmOS1iUTE7k1rwQ== raphael@alpes-book'
+HP(config)# 
+HP(config)# 
+HP(config)# end
+HP# 
+HP# logout
+Do you want to log out [y/n]? 

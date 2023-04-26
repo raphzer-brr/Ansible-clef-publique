@@ -7,4 +7,11 @@ clear crypto client-public-key manager 0
 
 
 show crypto client-public-key
+
 ssh admin@192.168.1.22
+
+cowsay "authentification se fait actuellement par mot de passe : "
+
+cowsay "egalement il ni a pas de clef public client dans le switch (commande show crypto client-public-key)"
+
+cowsay "la clef public a été recupéré directement dans le répertoire suivant ~/.ssh/id_rsa.pub"
