@@ -1,0 +1,10 @@
+conf t
+no ip ssh filetransfer
+ip ssh
+aaa authentication ssh login local none
+aaa authentication ssh enable local none
+clear crypto client-public-key manager 0
+
+
+show crypto client-public-key
+ssh admin@192.168.1.22
