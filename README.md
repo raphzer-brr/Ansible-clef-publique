@@ -43,7 +43,9 @@ pip install paramiko --upgrade
 ```bash
 export PWD_HP="Mon Mot de passe"
 ```
-
+```bash
+echo 'PWD_HP="Mon Mot de passe"'>>~/.zshrc && source ~/.zshrc
+```
 **Anulation du script**
 ```
 no ip ssh filetransfer
