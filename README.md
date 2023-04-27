@@ -2,36 +2,57 @@
 
 ## Todo
 - [ ]  METTRE A JOUR LE README !!!!!!!!!
-- [ ]  Mettre en place des variable d’environnment pour pouvoire faire mes git push l’esprit trkl
 - [ ]  Mettre en place un seveur dedier ansible sous deb 11 avec comme base l’article suivant : [https://www.tutos.eu/7852](https://www.tutos.eu/7852)
-- [ ]  Réfléchir si il serait mieux de mettre tout le deploiment dans un seule fichier
 - [ ]  Faire des fichier yaml qui serviront de var d'env pour des groupes d'apareil suivant leur OS
 - [ ]  Metre en place un script qui supprime les backup de fichier de conf trop vielle 
+- [x]  Réfléchir si il serait mieux de mettre tout le deploiment dans un seule fichier : **OUI**
+- [x]  Mettre en place des variable d’environnment pour pouvoire faire mes git push l’esprit trkl
 - [x]  Tester si l’os de l’appareil il est bien celui adapté.
 
 ## Cette grosse plaie de HP procurve 
 Liste des problemes : 
 - [ ]  Pas de module ansible officiel si je ne m'abuse (Aruba possible mais ProCurve dans mes reves)
-- [ ] ~~ Pourquoi pas le faire a la main en python ? => Des gens bien plus chaud que moi n'ont pas réussit ~~
-- [ ] ~~ Reverse engenering sur la maniere dont les commande ssh sont envoyer au switch via wireshark ! Sauf que devine quoi c'est impossible selon le Wiki de Wireshark (satané Diffie Helman)~~
-- [ ] ~~ Pourquoi pas changer le temps de négotiation de clef ???~~
-- [ ] ~~ Changer vers un algorithme obsolet ??~~
-- [ ] ~~ Trouver un autre bail de Ansible (Puppet ?? Terraforme ??)~~
-- [ ] ~~ Executé des commande via python comme si j'etais dans un terminale ??????? => Best soluc pour l'instant  ~~
+- [ ]  Pourquoi pas le faire a la main en python ? => Des gens bien plus chaud que moi n'ont pas réussit 
+- [ ]  Reverse engenering sur la maniere dont les commande ssh sont envoyer au switch via wireshark ! Sauf que devine quoi c'est impossible selon le Wiki de Wireshark (satané Diffie Helman)
+- [ ]  Pourquoi pas changer le temps de négotiation de clef ???
+- [ ]  Changer vers un algorithme obsolet ??
+- [ ]  Trouver un autre bail de Ansible (Puppet ?? Terraforme ??)
+- [ ]  Executé des commande via python comme si j'etais dans un terminale ??????? => Best soluc pour l'instant  
 
 ### Solution : ⭐ netmiko ⭐
+**Todo**
+- [ ] Transphormé en commande le script 
+- [ ] Si aucune clef est créé il faut qu'il en génère une ssh ssh-keygen -t rsa -b 4096 ou au moins qu'il affiche la commande ssh-keygen -t rsa -b 4096
+- [ ] Faire en sorte que les arg -p ou --port, -k ou --pub-key , -d ou --device (dictionnaire d'IP), -i ou --inventory
+- [ ] Faire ne
+- [ ] Il faut qu'il soit capable d'itéré cela sur plusieur HP procurve 
+- [ ] Trouver un moyen de centralisé tout les hoste dans un fichier hosts.yaml et meme ceux HP
+- [ ] Faire un vrai test avec les clef publique pour afficher seulement les erreur de Netmiko
+- [ ] Trouver un moyen de regler sans try exept le probeleme de timeout 
+- [ ] utilisé shell dans le playbook pour pouvoir run le script 
+- [x] Trouver l'erreur qui empeche de voire le resultat des commande en console 
+- [x] Trouver un moyen de supprimer la clef public client de maniere a pouvoire en mettre une autre 
+- [x] Faire ensuite un jeu de commande pour remettre le switch dans sa configuration de depart avec une auth ssh par mot de passe 
 
-** Intallation **
+**Intallation**
 ```bash
 pip install netmiko
 pip install paramiko --upgrade
-
+```
+**Variable d'environnement**
+```bash
+export PWD_HP="Mon Mot de passe"
 ```
 
-- [ ] Trouver un moyen de supprimer la clef public client de maniere a pouvoire en mettre une autre 
-- [ ] Faire ensuite un jeu de commande pour remettre le switch dans sa configuration de depart avec une auth ssh par mot de passe 
-- [ ] Trouver l'erreur qui empeche de voire le resultat des commande en console 
-- [ ] Il doit forcement y avoir un probleme dans les commande zeroid d'ailleur y'en a une qui marche pas 
+**Anulation du script**
+```
+no ip ssh filetransfer
+ip ssh
+aaa authentication ssh login local none
+aaa authentication ssh enable local none
+clear crypto client-public-key manager 0
+
+```
 
 ## NX OS
 ### Todo
@@ -42,7 +63,7 @@ pip install paramiko --upgrade
 - [x]  Supprimé l’utilisateur avant de le créé
 - [x]  Faire en sorte d’enregistrer le fichier de configuration précédent avant toute configuration avec ansible
 
-### 🆘Todo oubliette / idée avorté 🆘
+### 🆘 Todo oubliette / idée avorté 🆘
 - [ ]  Mettre a jour le N5K car pour celui que j’utilise on est a la version 5.3….
 
 | Supported Platforms | Minimum NX-OS Version |
